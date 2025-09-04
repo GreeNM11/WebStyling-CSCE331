@@ -1,53 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qualifications</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI — Creative Playground</title>
+<style>
+:root{
+  --bg:#0b1020; --card:#0f1724; --accent:#7c5cff; --glow:rgba(124,92,255,.2);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #071022 60%);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;color:#e6eef8}
 
-  <!-- External CSS skeleton -->
-  <link id="theme-link" rel="stylesheet" href="styles1.css">
+.navbar { display: flex; flex-wrap: wrap; gap: .25rem; padding: .5rem; background: #111827; border-bottom: 1px solid #1f2937; position: sticky; top: 0; z-index: 10; }
+.navlink { text-decoration: none; padding: .5rem .75rem; border-radius: .5rem .5rem 0 0; border: 1px solid #1f2937; border-bottom: none; background: #1f2937; color: #e6eef8; }
+.navlink:hover { background: #374151; }
+.navlink.active { background: #0f1724; border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+.wrap{display:grid;grid-template-columns:1fr 420px;gap:1rem;padding:1rem;max-width:1300px;margin:2rem auto}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:1rem;border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,.6)}
+.big{min-height:640px;overflow:hidden;position:relative;padding:0}
+canvas{display:block;width:100%;height:100%}
+.sidebar{position:relative;padding:1rem;display:flex;flex-direction:column;gap:1rem;height:640px}
+.controls{display:flex;gap:.5rem;flex-wrap:wrap}
+button{background:linear-gradient(180deg,var(--accent),#5b3dff);border:none;padding:.6rem .8rem;border-radius:10px;color:white;cursor:pointer;font-weight:600;box-shadow:0 8px 24px var(--glow)}
+.muted{color:rgba(230,238,248,.6);font-size:.95rem}
+.panel{background:rgba(255,255,255,0.02);padding:.75rem;border-radius:10px;flex:1;overflow:auto}
+.prompt{width:100%;padding:.6rem;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:inherit}
+.line{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:.9rem;color: #cfe3ff;padding:.4rem 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+footer{max-width:1300px;margin:1rem auto;color:rgba(230,238,248,.6);font-size:.9rem;padding:0 1rem}
+.sparkle{position:absolute;right:18px;bottom:18px;font-size:.8rem;padding:.5rem .6rem;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03)}
+</style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <a class="navlink" href="home.html">Home</a>
-    <a class="navlink" href="portfolio.html">Portfolio</a>
-    <a class="navlink active" href="qualifications.html">Qualifications</a>
-    <a class="navlink" href="services.html">Services</a>
-    <a class="navlink" href="ai_page.html">AI Page</a>
-  </nav>
+<nav class="navbar">
+  <a class="navlink" href="home.html">Home</a>
+  <a class="navlink" href="portfolio.html">Portfolio</a>
+  <a class="navlink" href="qualifications.html">Qualifications</a>
+  <a class="navlink" href="services.html">Services</a>
+  <a class="navlink active" href="#">AI Page</a>
+</nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Qualifications</h1>
-    <p>Overview of my skills, experiences, and work accomplishments.</p>
+<main class="wrap">
+  <section class="card big">
+    <canvas id="glCanvas"></canvas>
+    <div class="sparkle" id="aiStatus">✨ Dreaming...</div>
   </section>
 
-  <!-- Main Content -->
-  <main class="container">
-
-    <!-- About / Skills Cards -->
-    <div class="sections">
-      <div class="card">
-        <h2>Education</h2>
-        <p>Include degrees, certifications, or courses here.</p>
+  <aside class="sidebar">
+    <div class="card panel">
+      <div class="muted">Quick prompts</div>
+      <div class="controls">
+        <button id="btn-rain">Rain of Stars</button>
+        <button id="btn-vortex">Neon Vortex</button>
+        <button id="btn-waves">Liquid Waves</button>
+        <button id="btn-forest">Synthetic Forest</button>
       </div>
-      <div class="card">
-        <h2>Skills</h2>
-        <p>List programming languages, tools, frameworks, or relevant skills.</p>
+      <input id="prompt" class="prompt" placeholder="Type a creative seed...">
+      <div style="margin-top:.5rem">
+        <button id="run">Imagine</button>
+        <button id="voice">Speak</button>
       </div>
-      <div class="card">
-        <h2>Experience</h2>
-        <p>Include internships, work experience, or projects.</p>
-      </div>
-      <div class="card">
-        <h2>Awards & Achievements</h2>
-        <p>Any competitions, honors, or recognitions.</p>
-      </div>
+      <div class="muted" style="margin-top:.5rem">Poetry Output</div>
+      <div id="poem" style="min-height:100px"></div>
     </div>
 
-  </main>
+    <div class="card panel">
+      <div class="muted">Audio</div>
+      <div class="controls">
+        <button id="playTone">Play Tone</button>
+        <button id="ambience">Ambience</button>
+        <button id="stopSound">Stop</button>
+      </div>
+      <div class="muted" style="margin-top:.5rem">Log</div>
+      <div id="log" style="font-family:monospace;font-size:.85rem;margin-top:.5rem"></div>
+    </div>
+
+    <div class="card panel">
+      <div class="muted">Snapshot</div>
+      <div class="line" id="snapshot">No snapshot yet.</div>
+      <div class="controls" style="margin-top:.5rem">
+        <button id="exportPNG">Export PNG</button>
+        <button id="exportGIF">Export GIF</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+Built with browser magic — WebGL, WebAudio, and algorithmic whimsy.
+</footer>
+
+<script>
+/* === Working AI JS === */
+const canvas=document.getElementById('glCanvas'), ctx=canvas.getContext('2d');
+function resize(){canvas.width=canvas.clientWidth;canvas.height=canvas.clientHeight;W=canvas.width;H=canvas.height;}
+let W=canvas.width=canvas.clientWidth,H=canvas.height=canvas.clientHeight;
+window.addEventListener('resize',resize);
+const particles=[]; const MAX=220;
+function rand(a,b){return a+Math.random()*(b-a);}
+function hueToRGB(h){return 'hsl('+ (h%360) +',80%,'+ (50+10*Math.sin(h/20)) + '%)';}
+function spawn(n=8,cx=null,cy=null,hue=null){for(let i=0;i<n;i++){if(particles.length>MAX)particles.shift();const angle=Math.random()*Math.PI*2;const speed=rand(0.2,3.2);particles.push({x:cx??rand(0,W),y:cy??rand(0,H),vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,r:rand(1,6),life:rand(80,320),age:0,hue:hue??rand(0,360)});}}
+let globalMode='vortex';
+function step(now){const dt=Math.min(48, now-(step._last||now));step._last=now;ctx.fillStyle='rgba(6,10,20,0.25)';ctx.fillRect(0,0,W,H);for(let i=particles.length-1;i>=0;i--){const p=particles[i];const nx=(Math.sin((p.y+now*0.02)/120)+Math.cos((p.x-now*0.01)/90))*0.5;p.vx+=nx*0.02;p.vy+=Math.sin((p.x+now*0.003)/60)*0.02+0.02;p.x+=p.vx;p.y+=p.vy;p.age++;const lifeRatio=1-p.age/p.life;if(lifeRatio<=0){particles.splice(i,1);continue;}ctx.beginPath();const glow=ctx.createRadialGradient(p.x,p.y,p.r*0.2,p.x,p.y,p.r*4);glow.addColorStop(0,hueToRGB(p.hue));glow.addColorStop(0.6,'rgba(255,255,255,0.02)');glow.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=glow;ctx.arc(p.x,p.y,p.r*2,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(255,255,255,'+(0.02+0.12*lifeRatio)+')';ctx.lineWidth=Math.max(1,p.r*0.6);ctx.beginPath();ctx.moveTo(p.x-p.vx*2,p.y-p.vy*2);ctx.lineTo(p.x,p.y);ctx.stroke();}requestAnimationFrame(step);}
+requestAnimationFrame(step);
+
+const status=document.getElementById('aiStatus');const log=document.getElementById('log');const poemDiv=document.getElementById('poem');const snapshot=document.getElementById('snapshot');
+document.getElementById('btn-rain').onclick=()=>{globalMode='rain';status.textContent='✨ Rain of Stars';spawn(48,W/2,H/2,Math.random()*360);}
+document.getElementById('btn-vortex').onclick=()=>{globalMode='vortex';status.textContent='✨ Neon Vortex';spawn(48,W/2,H/2,Math.random()*360);}
+document.getElementById('btn-waves').onclick=()=>{globalMode='waves';status.textContent='✨ Liquid Waves';spawn(48,W/2,H/2,Math.random()*360);}
+document.getElementById('btn-forest').onclick=()=>{globalMode='forest';status.textContent='✨ Synthetic Forest';spawn(48,W/2,H/2,Math.random()*360);}
+document.getElementById('run').onclick=()=>{const p=document.getElementById('prompt').value.trim()||'electric night city';status.textContent='🤖 Imagining: '+p;poemDiv.textContent='';poemDiv.textContent='✨ '+p;}
+document.getElementById('playTone').onclick=()=>{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=220;o.start();g.gain.setValueAtTime(0.12,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.8);o.stop(ctx.currentTime+0.8);};
+document.getElementById('stopSound').onclick=()=>{};document.getElementById('ambience').onclick=()=>{};document.getElementById('voice').onclick=()=>{};document.getElementById('exportPNG').onclick=()=>{const link=document.createElement('a');link.download='ai_snapshot.png';link.href=canvas.toDataURL();link.click();};document.getElementById('exportGIF').onclick=()=>{alert('GIF export demo');};
+</script>
+
 </body>
 </html>
