@@ -1,0 +1,146 @@
+:root {
+  --padding: 1rem;
+  --gap: 1rem;
+  --border-radius: 0.75rem;
+  --card-padding: 1.5rem;
+}
+
+/* --- Basic Reset --- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+/* List */
+.list1 {
+  list-style: none;   
+  padding-left: 0;        
+  margin: 5px;           
+}
+.list1 li {
+  position: relative;   
+  padding-left: 1.5rem;   
+  margin-bottom: 0.2rem; 
+  color: var(--text);     
+  font-weight: 300;
+}
+.list1 li::before {
+  content: '•';          
+  position: absolute;
+  left: 0;
+  color: var(--accent);  
+  font-size: 2rem;
+  top: 0;
+  line-height: 1.5rem;       
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  padding: var(--padding);
+  position: sticky;
+  top: 0;
+}
+
+.navlink {
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border: 1px solid #000; 
+  border-bottom: none;
+  color:#80d5e2;
+}
+
+.navlink.active {
+  font-weight: 600;
+}
+
+/* --- Hero Section --- */
+.hero {
+  text-align: center;
+  padding: 6rem var(--padding) 4rem;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero button {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+/* --- Main Container --- */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem var(--padding);
+  display: grid;
+  gap: 3rem;
+}
+.container h1 {
+  text-align: left;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.container h2 {
+  text-align: left;
+  font-size: 1.2rem;
+  margin-bottom: .5rem;
+}
+
+/* --- Card --- */
+.card {
+  border: 1px solid #000; 
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+}
+.card2 {
+  border: 1px solid #000; 
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+}
+
+/* --- Sections --- */
+.sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--gap);
+}
+
+.section-button {
+  padding: 2rem 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #000; 
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  cursor: pointer;
+}
+
+/* --- Contact --- */
+.contact {
+  text-align: center;
+  padding: 2rem var(--padding);
+}
+
+.contact a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+}

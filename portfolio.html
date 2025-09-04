@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danny Lin — Portfolio</title>
+
+  <!-- External CSS -->
+  <link id="theme-link" rel="stylesheet" href="styles1.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a class="navlink" href="home.html">Home</a>
+    <a class="navlink active" href="portfolio.html">Portfolio</a>
+    <a class="navlink" href="qualifications.html">Qualifications</a>
+    <a class="navlink" href="services.html">Services</a>
+    <a class="navlink" href="ai_page.html">AI Page</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Portfolio</h1>
+    <p>Explore my projects and gallery showcasing games, apps, and creative experiments.</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Projects -->
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="card">
+        <video class="preview" autoplay loop muted playsinline>
+          <source src="media/chess.mp4" type="video/mp4" />
+        </video>
+        <h3>ChessQt | Chess Desktop App + TCP Server</h3>
+        <span class="badge">C++ / TCP Server / PostgreSQL | Qt Creator</span>
+        <p>Play multiplayer chess online.</p>
+      </div>
+
+      <div class="card">
+        <video class="preview" autoplay loop muted playsinline>
+          <source src="media/playtime.mp4" type="video/mp4" />
+        </video>
+        <h3>EvadeInvasion | 3D Tower Defense Game</h3>
+        <span class="badge">C++ / Unreal Engine 5 / Blueprints</span>
+        <p>Build turrets to defend against waves of enemies.</p>
+      </div>
+
+      <div class="card">
+        <video class="preview" autoplay loop muted playsinline>
+          <source src="media/person-detect.mp4" type="video/mp4" />
+        </video>
+        <h3>Spacer | 2D Dungeon Crawler</h3>
+        <span class="badge">Python / Pygame</span>
+        <p>Real-time detection pipeline with basic tracking.</p>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <h2>Gallery</h2>
+    <div class="sections gallery-grid">
+      <div class="section-button tile">Image 1</div>
+      <div class="section-button tile">Image 2</div>
+      <div class="section-button tile">Image 3</div>
+      <div class="section-button tile">Image 4</div>
+      <div class="section-button tile">Image 5</div>
+      <div class="section-button tile">Image 6</div>
+    </div>
+
+  </main>
+</body>
+</html>
